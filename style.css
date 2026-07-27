@@ -1,0 +1,228 @@
+/* ---------- Design tokens ----------
+   Putting repeated values (colors, border widths) in CSS variables
+   means if you ever want to change the accent color, you edit one line,
+   not fifteen. */
+:root {
+  --ink: #111111;
+  --paper: #f5f4f0;
+  --accent: #ffe600;
+  --border: 2px solid var(--ink);
+  --gap: 24px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.app {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 var(--gap) 60px;
+}
+
+/* ---------- Top bar ---------- */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-bottom: var(--border);
+  padding: 18px 0;
+}
+
+.brand {
+  font-weight: 800;
+  font-size: 18px;
+  letter-spacing: 1px;
+}
+
+.brand-sub {
+  font-weight: 400;
+  font-size: 13px;
+  letter-spacing: 2px;
+  color: #555;
+}
+
+.version {
+  font-size: 12px;
+  color: #888;
+}
+
+/* ---------- Tabs ---------- */
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  border-bottom: var(--border);
+}
+
+.tab {
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  background: var(--paper);
+  color: var(--ink);
+  border: var(--border);
+  border-left: none;
+  padding: 14px 20px;
+  cursor: pointer;
+}
+
+.tab:first-child {
+  border-left: var(--border);
+}
+
+.tab:hover {
+  background: var(--accent);
+}
+
+.tab.active {
+  background: var(--accent);
+}
+
+/* ---------- Converter layout ---------- */
+.converter {
+  padding-top: 40px;
+  max-width: 580px;
+  margin: 0 auto;
+}
+
+.field-card {
+  border: var(--border);
+  background: var(--paper);
+}
+
+.field-card + .field-card {
+  margin-top: 0;
+}
+
+.field-label {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: #777;
+  padding: 10px 16px 0;
+}
+
+.field-row {
+  display: flex;
+  align-items: stretch;
+}
+
+.field-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 32px;
+  font-weight: 800;
+  padding: 8px 16px 18px;
+  min-width: 0;
+}
+
+.field-input:focus {
+  outline: none;
+  background: #fbfaf5;
+}
+
+.field-output {
+  display: flex;
+  align-items: center;
+}
+
+.unit-select {
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  background: var(--paper);
+  color: var(--ink);
+  border: none;
+  border-left: var(--border);
+  padding: 0 16px;
+  cursor: pointer;
+}
+
+.unit-select:focus {
+  outline: none;
+  background: var(--accent);
+}
+
+/* Swap button sits between the two cards */
+.swap-btn {
+  display: block;
+  margin: -1px auto;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  background: var(--paper);
+  border: var(--border);
+  padding: 8px 18px;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+}
+
+.swap-btn:hover {
+  background: var(--accent);
+}
+
+.formula {
+  font-size: 13px;
+  color: #666;
+  margin: 14px 4px 40px;
+}
+
+/* ---------- All conversions panel ---------- */
+.all-conversions {
+  border: var(--border);
+}
+
+.all-header {
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 12px 16px;
+}
+
+.all-header-value {
+  color: var(--accent);
+}
+
+.all-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-top: var(--border);
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.all-row:hover {
+  background: var(--accent);
+}
+
+.all-row.active {
+  background: var(--accent);
+}
+
+.all-row-label {
+  color: #555;
+}
+
+.all-row.active .all-row-label,
+.all-row:hover .all-row-label {
+  color: var(--ink);
+}
+
+.all-row-value {
+  font-weight: 700;
+}

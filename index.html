@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CONV/ Unit Converter</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="app">
+
+    <!-- Top bar: just a title, no logic here -->
+    <header class="topbar">
+      <div class="brand">CONV/ <span class="brand-sub">UNIT CONVERTER</span></div>
+      <div class="version">v1.0</div>
+    </header>
+
+    <!-- Category tabs get built by JavaScript, so this starts empty -->
+    <nav class="tabs" id="tabs"></nav>
+
+    <main class="converter">
+
+      <!-- FROM card -->
+      <section class="field-card">
+        <label class="field-label">FROM</label>
+        <div class="field-row">
+          <input type="number" id="fromValue" class="field-input" value="1" inputmode="decimal" />
+          <select id="fromUnit" class="unit-select"></select>
+        </div>
+      </section>
+
+      <button id="swapBtn" class="swap-btn" title="Swap From and To" type="button">&#8645; SWAP</button>
+
+      <!-- TO card -->
+      <section class="field-card">
+        <label class="field-label">TO</label>
+        <div class="field-row">
+          <div id="toValue" class="field-input field-output">0</div>
+          <select id="toUnit" class="unit-select"></select>
+        </div>
+      </section>
+
+      <p class="formula" id="formula"></p>
+
+      <!-- All conversions panel -->
+      <section class="all-conversions">
+        <div class="all-header">
+          ALL CONVERSIONS <span id="allHeaderValue" class="all-header-value"></span>
+        </div>
+        <div id="allList" class="all-list"></div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
