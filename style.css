@@ -137,3 +137,11 @@ header span:last-child {
 #swapBtn:hover {
   background: var(--accent);
 }
+
+#formula {
+  max-width: 580px;
+  margin: 14px auto 40px;
+  padding: 0 4px;
+  font-size: 13px;
+  color: #666;
+}
