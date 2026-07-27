@@ -65,3 +65,56 @@ header span:last-child {
 #tabs button.active {
   background: var(--accent);
 }
+
+.field-card {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  border: var(--border);
+  max-width: 580px;
+  margin: 0 auto;
+}
+
+#tabs + .field-card {
+  margin-top: 40px;
+}
+
+.field-card label {
+  grid-column: 1 / -1;
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: #777;
+  padding: 10px 16px 0;
+}
+
+.field-card input,
+.field-card output {
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 32px;
+  font-weight: 800;
+  padding: 8px 16px 18px;
+  min-width: 0;
+}
+
+.field-card input:focus {
+  outline: none;
+  background: #fbfaf5;
+}
+
+.field-card select {
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  background: var(--paper);
+  color: var(--ink);
+  border: none;
+  border-left: var(--border);
+  padding: 0 16px;
+  cursor: pointer;
+}
+
+.field-card select:focus {
+  outline: none;
+  background: var(--accent);
+}
