@@ -90,3 +90,8 @@ const categories = {
     ],
   },
 };
+
+let activeCategory = "Length";
+let fromUnit = categories.Length.units[0];
+let toUnit = categories.Length.units[1];
+let fromValue = 1;
