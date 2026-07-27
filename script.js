@@ -165,3 +165,5 @@ function render() {
     allList.appendChild(li);
   });
 }
+
+render();
