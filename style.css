@@ -34,3 +34,34 @@ header span:last-child {
   font-size: 12px;
   color: #888;
 }
+
+#tabs {
+  display: flex;
+  flex-wrap: wrap;
+  border-bottom: var(--border);
+}
+
+#tabs button {
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  background: var(--paper);
+  color: var(--ink);
+  border: var(--border);
+  border-left: none;
+  padding: 14px 20px;
+  cursor: pointer;
+}
+
+#tabs button:first-child {
+  border-left: var(--border);
+}
+
+#tabs button:hover {
+  background: var(--accent);
+}
+
+#tabs button.active {
+  background: var(--accent);
+}
