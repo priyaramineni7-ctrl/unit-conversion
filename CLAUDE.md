@@ -24,21 +24,6 @@ the default response to a request.
 - **Don't add anything beyond what the current piece needs** — no
   jumping ahead to a future section, no extra structure "while we're
   at it."
-- **This session cannot see the user's screen, browser, or any
-  "computer use"/extension feature, ever**, regardless of what the user
-  says they enabled on their end. If asked, it's fine to check
-  ToolSearch once, honestly, then report plainly that nothing changed —
-  don't assume access exists just because the user believes they
-  granted it.
-- **Local file paths on the user's own machine (e.g. `C:\Users\...`)
-  are never reachable from a cloud session.** This session only has the
-  repo checked out in its own container. If the user wants a specific
-  local path used, that's about how *they* reference the repo locally
-  after `git pull` — not a path this session can read or write.
-- The user's workflow is: this session writes + commits + pushes each
-  piece to the branch below; the user runs `git pull` locally and opens
-  `index.html` in their own browser to see/test it. This session is not
-  the one running or screenshotting the live app on an ongoing basis.
 
 ## Source of truth
 
@@ -49,10 +34,7 @@ FROM unit, desktop-only layout, the full brutalist style spec), and the
 step order. Read it before making any decision — don't re-derive or
 re-litigate anything already settled there.
 
-## Repo
 
-- `priyaramineni7-ctrl/unit-conversion`
-- Branch: `claude/unit-converter-tutorial-8gojpt`
 
 ## Current status — update this section as work actually progresses
 
@@ -72,6 +54,4 @@ re-litigate anything already settled there.
      formula sentence, All Conversions rows)
   4. Behavior (event handlers — tab clicks, typing, swap, row clicks —
      which only ever update State and ask Rendering to redraw)
-- **Step 5 — manual test pass:** not started. Per `PLAN.md`, this means
-  hand-checking real numbers against a calculator for all 6 categories,
-  not just "it looks right."
+- **Step 5 — Testing:** not started. 
