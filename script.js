@@ -95,3 +95,73 @@ let activeCategory = "Length";
 let fromUnit = categories.Length.units[0];
 let toUnit = categories.Length.units[1];
 let fromValue = 1;
+
+function formatNumber(n) {
+  if (n === 0) return "0";
+  const raw = Number(n.toPrecision(8));
+  return raw.toLocaleString("fullwide", { useGrouping: false, maximumSignificantDigits: 8 });
+}
+
+function convert(value, from, to) {
+  return to.fromBase(from.toBase(value));
+}
+
+function render() {
+  const cats = Object.keys(categories);
+  const units = categories[activeCategory].units;
+
+  const tabs = document.getElementById("tabs");
+  tabs.innerHTML = "";
+  cats.forEach((name) => {
+    const btn = document.createElement("button");
+    btn.textContent = name.toUpperCase();
+    btn.dataset.category = name;
+    if (name === activeCategory) btn.classList.add("active");
+    tabs.appendChild(btn);
+  });
+
+  const fromSelect = document.getElementById("fromUnit");
+  const toSelect = document.getElementById("toUnit");
+  fromSelect.innerHTML = "";
+  toSelect.innerHTML = "";
+  units.forEach((u, i) => {
+    const fOpt = document.createElement("option");
+    fOpt.value = i;
+    fOpt.textContent = u.label;
+    if (u === fromUnit) fOpt.selected = true;
+    fromSelect.appendChild(fOpt);
+
+    const tOpt = document.createElement("option");
+    tOpt.value = i;
+    tOpt.textContent = u.label;
+    if (u === toUnit) tOpt.selected = true;
+    toSelect.appendChild(tOpt);
+  });
+
+  const result = convert(fromValue, fromUnit, toUnit);
+  document.getElementById("toValue").textContent = formatNumber(result);
+
+  document.getElementById("formula").textContent =
+    fromValue + " " + fromUnit.label + " = " + formatNumber(result) + " " + toUnit.label;
+
+  document.getElementById("allHeaderValue").textContent =
+    fromValue + " " + fromUnit.label;
+
+  const allList = document.getElementById("allList");
+  allList.innerHTML = "";
+  units.forEach((u) => {
+    if (u === fromUnit) return;
+    const li = document.createElement("li");
+    li.dataset.label = u.label;
+
+    const nameSpan = document.createElement("span");
+    nameSpan.textContent = u.label;
+    const valSpan = document.createElement("span");
+    valSpan.textContent = formatNumber(convert(fromValue, fromUnit, u));
+
+    li.appendChild(nameSpan);
+    li.appendChild(valSpan);
+    if (u === toUnit) li.classList.add("active");
+    allList.appendChild(li);
+  });
+}
