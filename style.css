@@ -1,0 +1,17 @@
+:root {
+  --ink: #111111;
+  --paper: #f5f4f0;
+  --accent: #ffe600;
+  --border: 2px solid var(--ink);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'JetBrains Mono', monospace;
+}
