@@ -118,3 +118,22 @@ header span:last-child {
   outline: none;
   background: var(--accent);
 }
+
+#swapBtn {
+  display: block;
+  margin: -1px auto;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  background: var(--paper);
+  border: var(--border);
+  padding: 8px 18px;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+}
+
+#swapBtn:hover {
+  background: var(--accent);
+}
