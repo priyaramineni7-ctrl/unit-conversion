@@ -176,4 +176,9 @@ document.getElementById("tabs").addEventListener("click", (event) => {
   render();
 });
 
+document.getElementById("fromValue").addEventListener("input", (event) => {
+  fromValue = Number(event.target.value) || 0;
+  render();
+});
+
 render();
