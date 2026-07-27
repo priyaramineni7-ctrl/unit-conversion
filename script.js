@@ -166,4 +166,14 @@ function render() {
   });
 }
 
+document.getElementById("tabs").addEventListener("click", (event) => {
+  const name = event.target.dataset.category;
+  if (!name) return;
+  activeCategory = name;
+  fromUnit = categories[name].units[0];
+  toUnit = categories[name].units[1];
+  fromValue = 1;
+  render();
+});
+
 render();
