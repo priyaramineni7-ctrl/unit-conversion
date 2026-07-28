@@ -191,4 +191,9 @@ document.getElementById("toUnit").addEventListener("change", (event) => {
   render();
 });
 
+document.getElementById("swapBtn").addEventListener("click", () => {
+  [fromUnit, toUnit] = [toUnit, fromUnit];
+  render();
+});
+
 render();
