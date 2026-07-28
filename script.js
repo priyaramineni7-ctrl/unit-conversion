@@ -181,4 +181,14 @@ document.getElementById("fromValue").addEventListener("input", (event) => {
   render();
 });
 
+document.getElementById("fromUnit").addEventListener("change", (event) => {
+  fromUnit = categories[activeCategory].units[event.target.value];
+  render();
+});
+
+document.getElementById("toUnit").addEventListener("change", (event) => {
+  toUnit = categories[activeCategory].units[event.target.value];
+  render();
+});
+
 render();
