@@ -46,12 +46,26 @@ re-litigate anything already settled there.
   hooks). Note: `.all-conversions li` styling assumes JS will build each
   row as `<li><span>label</span><span>value</span></li>` — nothing
   enforces that yet since Step 4 hasn't started.
-- **Step 4 — JavaScript:** not started. Planned as four sub-pieces,
-  same one-at-a-time approach as Steps 2–3:
-  1. Data (category/unit list, `toBase`/`fromBase` per unit)
-  2. State (active category, FROM unit, TO unit, typed value)
-  3. Rendering (state → what's on screen: tabs, dropdowns, result,
-     formula sentence, All Conversions rows)
-  4. Behavior (event handlers — tab clicks, typing, swap, row clicks —
-     which only ever update State and ask Rendering to redraw)
-- **Step 5 — Testing:** not started. 
+- **Step 4 — JavaScript:** done, in these pieces (each its own commit):
+  1. Data — `categories` object + `unit()` helper (linear units) +
+     hand-written Temperature functions.
+  2. State — `activeCategory`, `fromUnit`, `toUnit`, `fromValue`.
+  3. Rendering — one `render()` function (plus `formatNumber()` and
+     `convert()` helpers) that rebuilds tabs, dropdowns, result,
+     formula, and All Conversions rows from State + Data.
+  4. Behavior, split into 6 separate pieces per user feedback on
+     pacing (see below): initial `render()` call + `<script>` tag in
+     `index.html`, tab click, typing in FROM, FROM/TO dropdown change,
+     SWAP, All Conversions row click. All confirmed working by hand.
+- **Step 5 — Testing:** not started — up next. Manual pass across all
+  6 categories per PLAN.md's Step 5 description.
+
+### Note on pacing (learned mid–Step 4)
+
+The "handful of lines per turn" rule needs to be smaller than it
+sounds in practice. Piece 4.3 (Rendering) was written as one ~70-line
+`render()` function covering six sub-concerns at once — the user
+pushed back hard on this. Going forward: when a piece has multiple
+sub-behaviors (like Behavior's six event handlers), each sub-behavior
+is its own turn — explain, write a few lines, test, commit, stop —
+not bundled together even if they're short individually.
