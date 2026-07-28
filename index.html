@@ -16,7 +16,7 @@
   </header>
 
   <nav id="tabs"></nav>
-
+  <!--fromUnit <select> starts empty - script.js fills it with this category's units-->
   <section class="field-card">
     <label for="fromValue">FROM</label>
     <input type="number" id="fromValue" value="1" />
@@ -24,15 +24,15 @@
   </section>
 
   <button id="swapBtn" type="button">&#8645; SWAP</button>
-
+  <!--toValue is an <output>, not an input - user can't type into the result directly-->
   <section class="field-card">
     <label for="toValue">TO</label>
     <output id="toValue">0</output>
     <select id="toUnit"></select>
   </section>
-
+  <!--filled by render () — e.g. "1 Meter = 3.2808399 Foot" -->
   <p id="formula"></p>
-
+  <!--allList rows must be <li><span>label</span>-->
   <section class="all-conversions">
     <div>ALL CONVERSIONS <span id="allHeaderValue"></span></div>
     <ul id="allList"></ul>

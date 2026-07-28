@@ -1,10 +1,16 @@
+/* custom properties */
 :root {
   --ink: #111111;
   --paper: #f5f4f0;
   --accent: #ffe600;
   --border: 2px solid var(--ink);
 }
-
+/* box-sizing reset - padding/border count INSIDE an element's width, 
+not added on top.
+border-box makes width mean whole visible box, padding and border included - much more predictable
+Without it, if you give something width:200 px and then add padding: 20 px,, element actually renders 240 px (width+2*padding (on both sides))
+One of the most common lines of CSS
+*/
 * {
   box-sizing: border-box;
 }
@@ -17,27 +23,27 @@ body {
 }
 
 header {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
+  display: flex; /* flexbox: pushes the two text spans to opposite ends of the header (aka the header's children)*/
+  justify-content: space-between; /*what shovees the 1st span left and the last span right, with empty space in between*/
+  align-items: baseline; /*lines up their text baselines (useful since the two spans are different font sizes - 18 px vs 12 px - and you want their text, not their boxes to look aligned*/
   border-bottom: var(--border);
   padding: 18px 24px;
 }
 
-header span:first-child {
+header span:first-child { /* Target by position, no extra classes needed. This is a pseudo-class selector. We don't need to add class="title". Fewer classes cluttering cluttering HTML but more fragile if a 3rd span ever got added*/
   font-weight: 800;
   font-size: 18px;
   letter-spacing: 1px;
 }
 
-header span:last-child {
+header span:last-child { /* Target by position, no extra classes needed. This is a pseudo-class selector. We don't need to add class="version". */
   font-size: 12px;
   color: #888;
 }
 
 #tabs {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: wrap; /*flex row that wraps to a new line if the tabs don't all fit. Without this (default is nowrap), tabs would either shrinkt to fit or spill off the edge of the screen*/
   border-bottom: var(--border);
 }
 
@@ -49,54 +55,55 @@ header span:last-child {
   background: var(--paper);
   color: var(--ink);
   border: var(--border);
-  border-left: none;
+  border-left: none; 
   padding: 14px 20px;
   cursor: pointer;
 }
 
 #tabs button:first-child {
-  border-left: var(--border);
+  border-left: var(--border); /* border-left:none on every button, restord only on the first, avoid doubled borders where buttons touch. This is a genuinely useful pattern worth understanding. EAch button gets a full 2px border on all 4 sides except left. Why? Because each button's own right border already sits exactly where the next button's left edge is. If every button kept its left border too, you'd get 2x borders (4px thick - instead of 2px). So we strip left border from everyoone, then give it back only to 1st child since the 1st button has no before node*/
 }
 
-#tabs button:hover {
-  background: var(--accent);
+#tabs button:hover { /* hover is a pseudo-class - browser turns it on and off automatically where mouse physically is - 0 JS included*/
+  background: var(--accent); 
 }
-
+/* active = JS marked this as the selected tab. Active is a plain class - it only exists because our render() function explicitly wrote classList.add("active") onto one specific button. This is about data (which category is currently selected)*/
 #tabs button.active {
   background: var(--accent);
 }
 
 .field-card {
-  display: grid;
-  grid-template-columns: 1fr auto;
+  display: grid; 
+  grid-template-columns: 1fr auto; /* grid: 2 columns - value takes remaining space, unit selector shrinks to fit its content/. That's why the big number on left stretches to fill the card while the unit dropdown on the right stays exactly as wide as whatever label (ex: kilometer) is showing*/
   border: var(--border);
   max-width: 580px;
-  margin: 0 auto;
+  margin: 0 auto; /* classic trick for horizontally centering a block with a fixed max-width that's narrower than its container*/
 }
 
-#tabs + .field-card {
+#tabs + .field-card { /* adjacent sibling combinator (+) - only the field-card immediately after #tabs get this margin (aka the FROM card)*/
   margin-top: 40px;
 }
 
 .field-card label {
-  grid-column: 1 / -1;
+  grid-column: 1 / -1; /* makes the label span BOTH columns. -1 means the last one/column (aka the dropdown) */
   font-size: 11px;
   letter-spacing: 2px;
   color: #777;
   padding: 10px 16px 0;
 }
-
+/* grouped selector */
 .field-card input,
 .field-card output {
   border: none;
-  background: transparent;
+  background: transparent; /*input and select elements come with their own built-in appearence from the browser - we're striping the browser's default input styling before applying our own */
   font-family: inherit;
   font-size: 32px;
   font-weight: 800;
   padding: 8px 16px 18px;
-  min-width: 0;
+  min-width: 0; /* By default, form elements like <input> have an invisible built-in minimum width based on their content - inside a CSS grid or FLEXBOX layout, that can quietly force the whole column wider than you intended, even overflowing the card. Setting min-width to 0 overrides that hidden default, letting the browser actually shrink the input down to fit the grid column defined earlier (1fr). */
 }
 
+/* removes the default focus ring but replaces it with a background tint - never remove focus styling w/o a replacement. Outline:mone removes the blue ring browsers normally draw.  */
 .field-card input:focus {
   outline: none;
   background: #fbfaf5;
@@ -109,7 +116,7 @@ header span:last-child {
   background: var(--paper);
   color: var(--ink);
   border: none;
-  border-left: var(--border);
+  border-left: var(--border); /* same border trick as the tab buttons but more simply. Just a single vertical line on left acts as the divider between the number and the unit selector. */
   padding: 0 16px;
   cursor: pointer;
 }
@@ -121,7 +128,7 @@ header span:last-child {
 
 #swapBtn {
   display: block;
-  margin: -1px auto;
+  margin: -1px auto; /* margin pulls the button up/down 1px, enough to make the merge the swap button's border land right below FROM and top TO's bordre so they merg into one clean line instead of a thicker double-border*/
   font-family: inherit;
   font-size: 12px;
   font-weight: 700;
@@ -130,7 +137,7 @@ header span:last-child {
   border: var(--border);
   padding: 8px 18px;
   cursor: pointer;
-  position: relative;
+  position: relative; /* position relative is just to activate z-index. lets the swap button be on top of the FROM/TO borders it overlays. Z-index only has on elements that are positioned (relative, absolute, fixed or sticky). An element with the default position: static ignores z-index completely. So position: relative being dded here not to actually move the button anywhere. This makes sure the swap button's cream background and its own brodr render above the FROM/TO's card borders it's overlapping */
   z-index: 1;
 }
 
@@ -151,7 +158,7 @@ header span:last-child {
   max-width: 580px;
   margin: 0 auto;
 }
-
+/* > means DIRECT child only, not any div nested inside. A space between selectors (ex: .field-card label) means anywhere inside, no matter how deeply nested. A > means only one level down, immediate child. here it specifically targets the black header bar <div>*/
 .all-conversions > div {
   background: var(--ink);
   color: var(--paper);
@@ -164,7 +171,7 @@ header span:last-child {
 .all-conversions > div span {
   color: var(--accent);
 }
-
+/* un-style the list - browsers give <ul> bullet points default spacing that we don't want. Also a bare <ul> comes with bullet points (list-style). This is the standard 3 line reset to strip all of that away before applying custom list styling*/
 .all-conversions ul {
   list-style: none;
   margin: 0;
@@ -173,26 +180,26 @@ header span:last-child {
 
 .all-conversions li {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; /* Same flexbox trick as the header - pushes label and value to opposite ends of the row (Ex: Millimeter 1000)*/
   padding: 12px 16px;
   border-top: var(--border);
   cursor: pointer;
   font-size: 14px;
 }
-
-.all-conversions li span:first-child {
+/* positioned-based styling again. no extra classes needed */
+.all-conversions li span:first-child { /* Unit */
   color: #555;
 }
 
-.all-conversions li span:last-child {
+.all-conversions li span:last-child { /* Value */
   font-weight: 700;
 }
-
+/*row's background turns yellow*/
 .all-conversions li:hover,
 .all-conversions li.active {
   background: var(--accent);
 }
-
+/*flips gray label text to black since gray-on-yellow hard to read*/
 .all-conversions li:hover span:first-child,
 .all-conversions li.active span:first-child {
   color: var(--ink);
