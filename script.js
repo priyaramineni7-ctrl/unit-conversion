@@ -196,4 +196,11 @@ document.getElementById("swapBtn").addEventListener("click", () => {
   render();
 });
 
+document.getElementById("allList").addEventListener("click", (event) => {
+  const row = event.target.closest("li");
+  if (!row) return;
+  toUnit = categories[activeCategory].units.find((u) => u.label === row.dataset.label);
+  render();
+});
+
 render();
